@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creations - JewelryShare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 额外添加Font Awesome核心和品牌图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css">
+    <!-- GitHub Pages 路径修复脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置基础路径
+            const basePath = '/jewelry-sharing-platform/';
+            
+            // 修复图片路径
+            document.querySelectorAll('img').forEach(function(img) {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('https') && !src.startsWith(basePath)) {
+                    img.src = src.startsWith('/') ? basePath + src.substring(1) : basePath + src;
+                    console.log('修复图片路径:', src, '->', img.src);
+                }
+            });
+            
+            // 修复导航链接
+            document.querySelectorAll('a').forEach(function(link) {
+                const href = link.getAttribute('href');
+                if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('http') && 
+                    !href.startsWith('https') && !href.startsWith(basePath) && href !== 'index.html') {
+                    link.href = href.startsWith('/') ? basePath + href.substring(1) : basePath + href;
+                    console.log('修复链接:', href, '->', link.href);
+                }
+            });
+            
+            console.log('GitHub Pages路径修复脚本已执行');
+        });
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <style>
+        .profile-nav {
+            background-color: white;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 2rem;
+            margin-top: 72px;
+        }
+        
+        .profile-nav .nav-link {
+            color: #495057;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .profile-nav .nav-link.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .creations-header {
+            margin-bottom: 2rem;
+        }
+        
+        .creation-card {
+            margin-bottom: 1.5rem;
+        }
+        
+        .creation-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .creation-card .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .creation-card .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .creation-metadata {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .create-new-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            border: 2px dashed #dee2e6;
+            border-radius: 5px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .create-new-card:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .create-new-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .tag-badges {
+            margin-top: 1rem;
+        }
+        
+        .tag-badges .badge {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creation-actions {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #dee2e6;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-group-sm .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Profile Navigation -->
+    <nav class="profile-nav">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../profile.html">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="creations.html">Creations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="favorites.html">Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="collections.html">Collections</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Creations Content -->
+    <section class="py-4">
+        <div class="container">
+            <!-- Creations Header -->
+            <div class="creations-header">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>My Creations</h2>
+                    <a href="../create/upload.html" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-2"></i> New Creation
+                    </a>
+                </div>
+                <p class="text-muted">Manage, edit, and share your jewelry designs.</p>
+                
+                <!-- Filter Controls -->
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search your creations...">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-md-end mt-3 mt-md-0">
+                            <div class="btn-group me-2">
+                                <button type="button" class="btn btn-outline-secondary active">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            
+                            <select class="form-select form-select-sm me-2" style="width: auto;">
+                                <option>All Categories</option>
+                                <option>Necklaces</option>
+                                <option>Bracelets</option>
+                                <option>Earrings</option>
+                                <option>Rings</option>
+                                <option>Other</option>
+                            </select>
+                            
+                            <select class="form-select form-select-sm" style="width: auto;">
+                                <option>Recently Added</option>
+                                <option>Most Popular</option>
+                                <option>Oldest First</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted">32 items</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary active">All</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Published</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Drafts</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Creations Grid -->
+            <div class="row">
+                <!-- Create New Card (always first) -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="../create/upload.html" class="text-decoration-none">
+                        <div class="create-new-card h-100">
+                            <div class="icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h4>Create New</h4>
+                            <p class="text-muted">Upload photos and describe your newest jewelry creation</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Creation 1 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Pearl Necklace">
+                            <span class="badge bg-success status-badge">Published</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Elegant Pearl Necklace</h5>
+                            <p class="card-text">Handcrafted with freshwater pearls and sterling silver chain.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Pearls</span>
+                                <span class="badge bg-light text-dark">Sterling Silver</span>
+                                <span class="badge bg-light text-dark">Necklace</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 248 views</span>
+                                <span><i class="far fa-heart"></i> 42 likes</span>
+                                <span><i class="far fa-comment"></i> 7 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-info btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Published: October 15, 2023</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creation 2 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" class="card-img-top" alt="Wire Wrapped Ring">
+                            <span class="badge bg-success status-badge">Published</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Wire Wrapped Amethyst Ring</h5>
+                            <p class="card-text">Copper wire wrapped ring with natural amethyst stone. Adjustable size.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Wire Wrap</span>
+                                <span class="badge bg-light text-dark">Amethyst</span>
+                                <span class="badge bg-light text-dark">Ring</span>
+                                <span class="badge bg-light text-dark">Copper</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 176 views</span>
+                                <span><i class="far fa-heart"></i> 28 likes</span>
+                                <span><i class="far fa-comment"></i> 4 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-info btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Published: September 24, 2023</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creation 3 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1594115810247-b4db8612651c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" class="card-img-top" alt="Minimalist Earrings">
+                            <span class="badge bg-warning status-badge">Draft</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Minimalist Silver Earrings</h5>
+                            <p class="card-text">Contemporary sterling silver hoop earrings with hammered texture.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Sterling Silver</span>
+                                <span class="badge bg-light text-dark">Earrings</span>
+                                <span class="badge bg-light text-dark">Minimalist</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 0 views</span>
+                                <span><i class="far fa-heart"></i> 0 likes</span>
+                                <span><i class="far fa-comment"></i> 0 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-success btn-icon" title="Publish">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Preview">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Draft saved: November 2, 2023</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creation 4 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Turquoise Statement Ring">
+                            <span class="badge bg-success status-badge">Published</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Turquoise Statement Ring</h5>
+                            <p class="card-text">Bold silver ring featuring a natural turquoise stone in a bezel setting.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Silver</span>
+                                <span class="badge bg-light text-dark">Turquoise</span>
+                                <span class="badge bg-light text-dark">Ring</span>
+                                <span class="badge bg-light text-dark">Statement</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 312 views</span>
+                                <span><i class="far fa-heart"></i> 56 likes</span>
+                                <span><i class="far fa-comment"></i> 9 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-info btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Published: August 16, 2023</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creation 5 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Copper Bracelet">
+                            <span class="badge bg-success status-badge">Published</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Copper Cuff Bracelet</h5>
+                            <p class="card-text">Hand-hammered copper cuff with organic texture and patina finish.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Copper</span>
+                                <span class="badge bg-light text-dark">Bracelet</span>
+                                <span class="badge bg-light text-dark">Hammered</span>
+                                <span class="badge bg-light text-dark">Cuff</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 194 views</span>
+                                <span><i class="far fa-heart"></i> 35 likes</span>
+                                <span><i class="far fa-comment"></i> 6 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-info btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Share">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Published: July 29, 2023</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creation 6 -->
+                <div class="col-lg-4 col-md-6 creation-card">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" class="card-img-top" alt="Layered Necklace">
+                            <span class="badge bg-warning status-badge">Draft</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Layered Gemstone Necklace</h5>
+                            <p class="card-text">Multi-strand necklace featuring various colorful gemstone beads.</p>
+                            
+                            <div class="tag-badges">
+                                <span class="badge bg-light text-dark">Gemstones</span>
+                                <span class="badge bg-light text-dark">Necklace</span>
+                                <span class="badge bg-light text-dark">Layered</span>
+                                <span class="badge bg-light text-dark">Colorful</span>
+                            </div>
+                            
+                            <div class="creation-metadata">
+                                <span><i class="far fa-eye"></i> 0 views</span>
+                                <span><i class="far fa-heart"></i> 0 likes</span>
+                                <span><i class="far fa-comment"></i> 0 comments</span>
+                            </div>
+                            
+                            <div class="creation-actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-success btn-icon" title="Publish">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-icon" title="Preview">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-muted">
+                            <small>Draft saved: November 5, 2023</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Creations pagination" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Connecting jewelry makers and enthusiasts worldwide.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../index.html" class="text-light">Home</a></li>
+                        <li><a href="../discover.html" class="text-light">Discover</a></li>
+                        <li><a href="../create/upload.html" class="text-light">Create</a></li>
+                        <li><a href="../community/community.html" class="text-light">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 JewelryShare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/navbar.js"></script>
+    <script>
+        // Load navbar component
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置GitHub Pages基础路径
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/jewelry-sharing-platform' : '';
+            console.log('环境检测:', isGitHubPages ? 'GitHub Pages' : '本地或其他环境');
+            console.log('基础路径:', basePath);
+            
+            // 加载导航栏组件
+            fetch(`${basePath}/components/navbar.html`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    
+                    // 初始化 Bootstrap 组件
+                    const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+                    dropdownElementList.map(function (dropdownToggleEl) {
+                        return new bootstrap.Dropdown(dropdownToggleEl);
+                    });
+
+                    // 更新导航栏中的链接
+                    document.querySelectorAll('#navbar-container a').forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith(basePath)) {
+                            const newHref = href.startsWith('/') 
+                                ? basePath + href 
+                                : basePath + '/' + href;
+                            console.log('更新导航链接:', href, '->', newHref);
+                            link.href = newHref;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading navbar:', error);
+                    // Fallback content if navbar fails to load
+                    document.getElementById('navbar-container').innerHTML = `
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+                            <div class="container">
+                                <a class="navbar-brand" href="${basePath}/index.html">
+                                    <i class="fas fa-gem me-2"></i>JewelryShare
+                                </a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarContent">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/index.html">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/discover.html">Discover</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/create/upload.html">Create</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/community/community.html">Community</a>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex">
+                                        <a href="${basePath}/pages/auth/login.html" class="btn btn-outline-primary me-2">Login</a>
+                                        <a href="${basePath}/pages/auth/signup.html" class="btn btn-primary">Sign Up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    `;
+                });
+            
+            // 初始化视图切换按钮
+            document.querySelectorAll('.btn-group .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

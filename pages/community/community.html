@@ -8,64 +8,145 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 额外添加Font Awesome核心和品牌图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css">
+    <!-- GitHub Pages 路径修复脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置基础路径
+            const basePath = '/jewelry-sharing-platform/';
+            
+            // 修复图片路径
+            document.querySelectorAll('img').forEach(function(img) {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('https') && !src.startsWith(basePath)) {
+                    img.src = src.startsWith('/') ? basePath + src.substring(1) : basePath + src;
+                    console.log('修复图片路径:', src, '->', img.src);
+                }
+            });
+            
+            // 修复导航链接
+            document.querySelectorAll('a').forEach(function(link) {
+                const href = link.getAttribute('href');
+                if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('http') && 
+                    !href.startsWith('https') && !href.startsWith(basePath) && href !== 'index.html') {
+                    link.href = href.startsWith('/') ? basePath + href.substring(1) : basePath + href;
+                    console.log('修复链接:', href, '->', link.href);
+                }
+            });
+            
+            console.log('GitHub Pages路径修复脚本已执行');
+        });
+    </script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <style>
-        .community-hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/community-hero.jpg');
+        .community-header {
+            background-color: #f8f9fa;
+            padding: 4rem 0;
+            margin-top: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .community-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
             background-size: cover;
             background-position: center;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-top: 72px;
+            filter: brightness(0.3);
+            z-index: 0;
         }
-
-        .featured-maker {
-            transition: transform 0.3s ease;
+        
+        .community-header .container {
+            position: relative;
+            z-index: 1;
         }
-
-        .featured-maker:hover {
-            transform: translateY(-5px);
+        
+        .community-header h1,
+        .community-header p {
+            color: #fff;
         }
-
-        .maker-avatar {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 1rem;
+        
+        .community-search {
+            max-width: 600px;
+            margin: 2rem auto 0;
         }
-
-        .discussion-card {
-            transition: transform 0.3s ease;
+        
+        .community-nav {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .community-nav .nav-link {
+            color: #495057;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .community-nav .nav-link.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .section-title {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .community-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 1.5rem;
         }
-
-        .discussion-card:hover {
-            transform: translateX(5px);
+        
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
-        .event-card {
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+        
+        .community-card img {
+            border-radius: 10px 10px 0 0;
+            height: 150px;
+            object-fit: cover;
         }
-
-        .event-card:hover {
-            transform: scale(1.02);
+        
+        .creator-info {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
         }
-
-        .event-date {
-            background-color: #007bff;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            display: inline-block;
+        
+        .creator-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -73,144 +154,360 @@
     <!-- Include Navbar Component -->
     <div id="navbar-container"></div>
 
-    <!-- Hero Section -->
-    <section class="community-hero">
+    <!-- Community Header -->
+    <header class="community-header text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">Join Our Community</h1>
-            <p class="lead">Connect with fellow jewelry makers, share tips, and get inspired</p>
+            <h1 class="display-4 fw-bold">Jewelry Making Community</h1>
+            <p class="lead">Connect with fellow jewelry makers, join discussions, share knowledge, and grow your craft.</p>
+            
+            <div class="community-search">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Search discussions, events, or tutorials...">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Featured Makers Section -->
-    <section class="featured-makers py-5">
+    <!-- Community Navigation -->
+    <nav class="community-nav">
         <div class="container">
-            <h2 class="text-center mb-4">Featured Makers</h2>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="community.html">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="discussions.html">Discussions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tutorials.html">Tutorials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="events.html">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="challenges.html">Challenges</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="marketplace.html">Marketplace</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Community Content -->
+    <main class="py-4">
+        <div class="container">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-center featured-maker">
+                <!-- Main Content Column -->
+                <div class="col-lg-8">
+                    <!-- Featured Discussions -->
+                    <section class="mb-5">
+                        <h2 class="section-title">Hot Discussions</h2>
+                        <div class="card community-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-primary">Wire Wrapping</span>
+                                    <small class="text-muted">2 hours ago</small>
+                                </div>
+                                <h5 class="card-title">
+                                    <a href="discussions/wire-wrapping-tips.html" class="text-decoration-none text-dark">Best Wire Gauge for Delicate Stone Wrapping?</a>
+                                </h5>
+                                <p class="card-text">I'm trying to create some wire-wrapped pendants with small, delicate stones but I'm not sure which wire gauge would work best. Has anyone worked with small stones before and...</p>
+                                
+                                <div class="creator-info">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Creator" class="creator-avatar">
+                                    <div>
+                                        <span>Started by <a href="#" class="text-decoration-none">Sarah Parker</a></span>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <span class="me-3"><i class="far fa-comment text-muted me-1"></i> 24 replies</span>
+                                            <span><i class="far fa-eye text-muted me-1"></i> 156 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card community-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-info">Materials</span>
+                                    <small class="text-muted">Yesterday</small>
+                                </div>
+                                <h5 class="card-title">
+                                    <a href="discussions/resin-techniques.html" class="text-decoration-none text-dark">Troubleshooting Resin Bubbles in Jewelry</a>
+                                </h5>
+                                <p class="card-text">I'm having a hard time getting bubble-free results when working with resin for jewelry components. I've tried a heat gun but still get some tiny bubbles. Does anyone have any techniques...</p>
+                                
+                                <div class="creator-info">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Creator" class="creator-avatar">
+                                    <div>
+                                        <span>Started by <a href="#" class="text-decoration-none">Michael Thompson</a></span>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <span class="me-3"><i class="far fa-comment text-muted me-1"></i> 31 replies</span>
+                                            <span><i class="far fa-eye text-muted me-1"></i> 212 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card community-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-success">Business</span>
+                                    <small class="text-muted">3 days ago</small>
+                                </div>
+                                <h5 class="card-title">
+                                    <a href="discussions/pricing-handmade.html" class="text-decoration-none text-dark">How to Price Your Handmade Jewelry?</a>
+                                </h5>
+                                <p class="card-text">I'm struggling with pricing my handmade pieces. I want to be fair to myself and account for materials, time, and skill, but also stay competitive. How do you approach pricing your work?</p>
+                                
+                                <div class="creator-info">
+                                    <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Creator" class="creator-avatar">
+                                    <div>
+                                        <span>Started by <a href="#" class="text-decoration-none">Elena Rodriguez</a></span>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <span class="me-3"><i class="far fa-comment text-muted me-1"></i> 48 replies</span>
+                                            <span><i class="far fa-eye text-muted me-1"></i> 327 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a href="discussions.html" class="btn btn-outline-primary">Browse All Discussions</a>
+                        </div>
+                    </section>
+                    
+                    <!-- Featured Tutorials -->
+                    <section class="mb-5">
+                        <h2 class="section-title">Latest Tutorials</h2>
+                        <div class="row">
+                            <!-- Tutorial 1 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card community-card h-100">
+                                    <img src="https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Wire Wrapping Tutorial">
+                                    <div class="card-body">
+                                        <span class="badge bg-secondary mb-2">Beginner</span>
+                                        <h5 class="card-title">
+                                            <a href="tutorials/basic-wire-wrapping.html" class="text-decoration-none text-dark">Basic Wire Wrapping Techniques for Beginners</a>
+                                        </h5>
+                                        <p class="card-text">Learn fundamental wire wrapping skills to create beautiful pendants and earrings with basic tools.</p>
+                                        <div class="d-flex align-items-center">
+                                            <i class="far fa-clock text-muted me-1"></i>
+                                            <small class="text-muted">30 min</small>
+                                            <i class="fas fa-signal text-muted ms-3 me-1"></i>
+                                            <small class="text-muted">Beginner</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0">
+                                        <div class="creator-info">
+                                            <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Creator" class="creator-avatar">
+                                            <small>By <a href="#" class="text-decoration-none">Jessica Wang</a></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tutorial 2 -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card community-card h-100">
+                                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Beading Tutorial">
+                                    <div class="card-body">
+                                        <span class="badge bg-warning text-dark mb-2">Intermediate</span>
+                                        <h5 class="card-title">
+                                            <a href="tutorials/advanced-beading.html" class="text-decoration-none text-dark">Advanced Beadwork: Creating Complex Patterns</a>
+                                        </h5>
+                                        <p class="card-text">Take your beading to the next level with advanced techniques for creating intricate patterns.</p>
+                                        <div class="d-flex align-items-center">
+                                            <i class="far fa-clock text-muted me-1"></i>
+                                            <small class="text-muted">45 min</small>
+                                            <i class="fas fa-signal text-muted ms-3 me-1"></i>
+                                            <small class="text-muted">Intermediate</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0">
+                                        <div class="creator-info">
+                                            <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="Creator" class="creator-avatar">
+                                            <small>By <a href="#" class="text-decoration-none">Robert Chen</a></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a href="tutorials.html" class="btn btn-outline-primary">Browse All Tutorials</a>
+                        </div>
+                    </section>
+                    
+                    <!-- Upcoming Events -->
+                    <section class="mb-5">
+                        <h2 class="section-title">Upcoming Events</h2>
+                        <div class="card community-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center">
+                                        <div class="p-3 bg-light rounded">
+                                            <h3 class="m-0">15</h3>
+                                            <p class="m-0">Nov 2023</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5 class="card-title">Virtual Workshop: Metal Stamping Basics</h5>
+                                        <p class="card-text">Learn the fundamentals of metal stamping to create personalized jewelry pieces with professional results.</p>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-video text-muted me-2"></i>
+                                            <span>Online</span>
+                                            <i class="far fa-clock text-muted ms-4 me-2"></i>
+                                            <span>2:00 PM - 4:00 PM EST</span>
+                                        </div>
+                                        <a href="events/metal-stamping-workshop.html" class="btn btn-sm btn-outline-primary">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card community-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center">
+                                        <div class="p-3 bg-light rounded">
+                                            <h3 class="m-0">3-5</h3>
+                                            <p class="m-0">Dec 2023</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5 class="card-title">Annual Jewelry Craft Fair</h5>
+                                        <p class="card-text">Join us for our biggest event of the year! Meet fellow crafters, showcase your work, and learn new techniques.</p>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                            <span>Convention Center, Atlanta, GA</span>
+                                            <i class="far fa-clock text-muted ms-4 me-2"></i>
+                                            <span>10:00 AM - 6:00 PM Daily</span>
+                                        </div>
+                                        <a href="events/craft-fair.html" class="btn btn-sm btn-outline-primary">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a href="events.html" class="btn btn-outline-primary">View All Events</a>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Sidebar Column -->
+                <div class="col-lg-4">
+                    <!-- Community Stats -->
+                    <div class="card mb-4">
                         <div class="card-body">
-                            <img src="../../assets/maker1.jpg" alt="Maker" class="maker-avatar">
-                            <h5 class="card-title">Sarah Johnson</h5>
-                            <p class="card-text">Wire Wrapping Expert</p>
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-outline-primary">View Profile</a>
+                            <h5 class="card-title">Community Stats</h5>
+                            <div class="row text-center my-3">
+                                <div class="col">
+                                    <h3>15,482</h3>
+                                    <p class="text-muted mb-0">Members</p>
+                                </div>
+                                <div class="col">
+                                    <h3>8,731</h3>
+                                    <p class="text-muted mb-0">Discussions</p>
+                                </div>
+                                <div class="col">
+                                    <h3>423</h3>
+                                    <p class="text-muted mb-0">Tutorials</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center featured-maker">
+                    
+                    <!-- Current Challenge -->
+                    <div class="card mb-4 bg-light">
                         <div class="card-body">
-                            <img src="../../assets/maker2.jpg" alt="Maker" class="maker-avatar">
-                            <h5 class="card-title">Jane Doe</h5>
-                            <p class="card-text">Pearl Specialist</p>
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-outline-primary">View Profile</a>
+                            <h5 class="card-title">Current Challenge</h5>
+                            <div class="text-center my-3">
+                                <img src="https://images.unsplash.com/photo-1596944924616-7b38e4b9b2ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Autumn Inspiration Challenge" class="img-fluid rounded mb-3" style="max-height: 150px; object-fit: cover; width: 100%;">
+                                <h5>Autumn Inspiration Challenge</h5>
+                                <p>Create a piece inspired by autumn colors and textures. Submit by November 30th!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-warning text-dark">27 days left</span>
+                                    <span>68 entries</span>
+                                </div>
                             </div>
+                            <a href="challenges/autumn-inspiration.html" class="btn btn-primary w-100">Join Challenge</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center featured-maker">
+                    
+                    <!-- Active Members -->
+                    <div class="card mb-4">
                         <div class="card-body">
-                            <img src="../../assets/maker3.jpg" alt="Maker" class="maker-avatar">
-                            <h5 class="card-title">John Smith</h5>
-                            <p class="card-text">Beadwork Artist</p>
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-outline-primary">View Profile</a>
-                            </div>
+                            <h5 class="card-title">Active Members</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Member" class="rounded-circle me-3" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-0">Sarah Parker</h6>
+                                            <small class="text-muted">Wire Wrapping Expert</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Member" class="rounded-circle me-3" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-0">Michael Thompson</h6>
+                                            <small class="text-muted">Resin Specialist</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Member" class="rounded-circle me-3" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-0">Elena Rodriguez</h6>
+                                            <small class="text-muted">Metalsmith</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Member" class="rounded-circle me-3" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-0">David Kim</h6>
+                                            <small class="text-muted">Gemstone Expert</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Member" class="rounded-circle me-3" width="40" height="40">
+                                        <div>
+                                            <h6 class="mb-0">Jessica Wang</h6>
+                                            <small class="text-muted">Beadwork Artist</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center featured-maker">
-                        <div class="card-body">
-                            <img src="../../assets/maker4.jpg" alt="Maker" class="maker-avatar">
-                            <h5 class="card-title">Emily Brown</h5>
-                            <p class="card-text">Metal Work Expert</p>
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="btn btn-outline-primary">View Profile</a>
-                            </div>
+                    
+                    <!-- Join Our Community CTA -->
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body text-center py-4">
+                            <h5 class="card-title">Join Our Community</h5>
+                            <p>Connect with 15,000+ jewelry makers from around the world.</p>
+                            <a href="../auth/signup.html" class="btn btn-light">Sign Up Now</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Discussions Section -->
-    <section class="discussions py-5 bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2 class="mb-4">Recent Discussions</h2>
-                    <div class="card discussion-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Tips for Working with Sterling Silver</h5>
-                            <p class="card-text">Looking for advice on polishing and maintaining sterling silver jewelry...</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Posted by Sarah Johnson</small>
-                                <div>
-                                    <span class="me-2"><i class="far fa-comment"></i> 24</span>
-                                    <span><i class="far fa-eye"></i> 156</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card discussion-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Best Beads for Beginners</h5>
-                            <p class="card-text">What are your favorite beads to work with when starting out?...</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Posted by John Smith</small>
-                                <div>
-                                    <span class="me-2"><i class="far fa-comment"></i> 18</span>
-                                    <span><i class="far fa-eye"></i> 98</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card discussion-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Wire Gauge Recommendations</h5>
-                            <p class="card-text">What wire gauge do you prefer for different types of jewelry?...</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Posted by Jane Doe</small>
-                                <div>
-                                    <span class="me-2"><i class="far fa-comment"></i> 32</span>
-                                    <span><i class="far fa-eye"></i> 210</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center mt-4">
-                        <a href="#" class="btn btn-primary">View All Discussions</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h2 class="mb-4">Upcoming Events</h2>
-                    <div class="card event-card mb-3">
-                        <img src="../../assets/event1.jpg" class="card-img-top" alt="Event">
-                        <div class="card-body">
-                            <div class="event-date mb-2">May 15, 2024</div>
-                            <h5 class="card-title">Wire Wrapping Workshop</h5>
-                            <p class="card-text">Learn advanced wire wrapping techniques with Sarah Johnson.</p>
-                            <a href="#" class="btn btn-primary">Register Now</a>
-                        </div>
-                    </div>
-                    <div class="card event-card">
-                        <img src="../../assets/event2.jpg" class="card-img-top" alt="Event">
-                        <div class="card-body">
-                            <div class="event-date mb-2">June 2, 2024</div>
-                            <h5 class="card-title">Beading Basics</h5>
-                            <p class="card-text">Master the fundamentals of beading with John Smith.</p>
-                            <a href="#" class="btn btn-primary">Register Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-dark text-light py-4">
@@ -226,7 +523,7 @@
                         <li><a href="../../index.html" class="text-light">Home</a></li>
                         <li><a href="../discover.html" class="text-light">Discover</a></li>
                         <li><a href="../create/upload.html" class="text-light">Create</a></li>
-                        <li><a href="#" class="text-light">Community</a></li>
+                        <li><a href="community.html" class="text-light">Community</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -256,16 +553,76 @@
     <script>
         // Load navbar component
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('../../components/navbar.html')
-                .then(response => response.text())
+            // 设置GitHub Pages基础路径
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/jewelry-sharing-platform' : '';
+            console.log('环境检测:', isGitHubPages ? 'GitHub Pages' : '本地或其他环境');
+            console.log('基础路径:', basePath);
+            
+            // 加载导航栏组件
+            fetch(`${basePath}/components/navbar.html`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
                 .then(html => {
                     document.getElementById('navbar-container').innerHTML = html;
                     
-                    // Initialize Bootstrap components
+                    // 初始化 Bootstrap 组件
                     const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
                     dropdownElementList.map(function (dropdownToggleEl) {
                         return new bootstrap.Dropdown(dropdownToggleEl);
                     });
+
+                    // 更新导航栏中的链接
+                    document.querySelectorAll('#navbar-container a').forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith(basePath)) {
+                            const newHref = href.startsWith('/') 
+                                ? basePath + href 
+                                : basePath + '/' + href;
+                            console.log('更新导航链接:', href, '->', newHref);
+                            link.href = newHref;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading navbar:', error);
+                    // Fallback content if navbar fails to load
+                    document.getElementById('navbar-container').innerHTML = `
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+                            <div class="container">
+                                <a class="navbar-brand" href="${basePath}/index.html">
+                                    <i class="fas fa-gem me-2"></i>JewelryShare
+                                </a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarContent">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/index.html">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/discover.html">Discover</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/create/upload.html">Create</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="${basePath}/pages/community/community.html">Community</a>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex">
+                                        <a href="${basePath}/pages/auth/login.html" class="btn btn-outline-primary me-2">Login</a>
+                                        <a href="${basePath}/pages/auth/signup.html" class="btn btn-primary">Sign Up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    `;
                 });
         });
     </script>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites - JewelryShare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 额外添加Font Awesome核心和品牌图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css">
+    <!-- GitHub Pages 路径修复脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置基础路径
+            const basePath = '/jewelry-sharing-platform/';
+            
+            // 修复图片路径
+            document.querySelectorAll('img').forEach(function(img) {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('https') && !src.startsWith(basePath)) {
+                    img.src = src.startsWith('/') ? basePath + src.substring(1) : basePath + src;
+                    console.log('修复图片路径:', src, '->', img.src);
+                }
+            });
+            
+            // 修复导航链接
+            document.querySelectorAll('a').forEach(function(link) {
+                const href = link.getAttribute('href');
+                if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('http') && 
+                    !href.startsWith('https') && !href.startsWith(basePath) && href !== 'index.html') {
+                    link.href = href.startsWith('/') ? basePath + href.substring(1) : basePath + href;
+                    console.log('修复链接:', href, '->', link.href);
+                }
+            });
+            
+            console.log('GitHub Pages路径修复脚本已执行');
+        });
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <style>
+        .profile-nav {
+            background-color: white;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 2rem;
+            margin-top: 72px;
+        }
+        
+        .profile-nav .nav-link {
+            color: #495057;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .profile-nav .nav-link.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .favorites-header {
+            margin-bottom: 2rem;
+        }
+        
+        .favorites-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .favorites-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .favorites-item .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .favorites-item .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-buttons {
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-buttons .btn {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creator-info {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .creator-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .item-metadata {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Profile Navigation -->
+    <nav class="profile-nav">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../profile.html">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="creations.html">Creations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="favorites.html">Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="collections.html">Collections</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Favorites Content -->
+    <section class="py-4">
+        <div class="container">
+            <!-- Favorites Header -->
+            <div class="favorites-header">
+                <h2>My Favorite Creations</h2>
+                <p class="text-muted">Items you've liked and saved for inspiration.</p>
+                
+                <!-- Filter Options -->
+                <div class="filter-buttons">
+                    <button class="btn btn-primary active">All</button>
+                    <button class="btn btn-outline-primary">Necklaces</button>
+                    <button class="btn btn-outline-primary">Earrings</button>
+                    <button class="btn btn-outline-primary">Bracelets</button>
+                    <button class="btn btn-outline-primary">Rings</button>
+                    <button class="btn btn-outline-primary">Other</button>
+                </div>
+                
+                <!-- Sort Options -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="text-muted">42 items</span>
+                    </div>
+                    <div>
+                        <select class="form-select form-select-sm" style="width: auto; display: inline-block;">
+                            <option>Recently Liked</option>
+                            <option>Most Popular</option>
+                            <option>Creator Name (A-Z)</option>
+                            <option>Creation Date</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Favorites Grid -->
+            <div class="row">
+                <!-- Favorite Item 1 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Gold Statement Necklace">
+                        <div class="card-body">
+                            <h5 class="card-title">Gold Statement Necklace</h5>
+                            <p class="card-text">Elegant gold statement necklace with intricate filigree work.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">Maria Chen</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 198</span>
+                                <span><i class="far fa-comment"></i> 24</span>
+                                <span><i class="far fa-calendar-alt"></i> Apr 12, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Item 2 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1576022162208-39a4b1282145?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Crystal Beaded Bracelet">
+                        <div class="card-body">
+                            <h5 class="card-title">Crystal Beaded Bracelet</h5>
+                            <p class="card-text">Handcrafted stretch bracelet with natural crystal beads.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">James Wilson</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 87</span>
+                                <span><i class="far fa-comment"></i> 9</span>
+                                <span><i class="far fa-calendar-alt"></i> May 3, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Item 3 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1594115810247-b4db8612651c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" class="card-img-top" alt="Silver Hoop Earrings">
+                        <div class="card-body">
+                            <h5 class="card-title">Silver Hoop Earrings</h5>
+                            <p class="card-text">Minimalist sterling silver hoop earrings with hammered texture.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">Sophie Kim</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 104</span>
+                                <span><i class="far fa-comment"></i> 14</span>
+                                <span><i class="far fa-calendar-alt"></i> Jun 17, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Item 4 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Turquoise Statement Ring">
+                        <div class="card-body">
+                            <h5 class="card-title">Turquoise Statement Ring</h5>
+                            <p class="card-text">Bold silver ring featuring a natural turquoise stone.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">David Rodriguez</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 76</span>
+                                <span><i class="far fa-comment"></i> 5</span>
+                                <span><i class="far fa-calendar-alt"></i> Aug 2, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Item 5 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1618403088890-3d9ff6f4c8b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" class="card-img-top" alt="Layered Gemstone Necklace">
+                        <div class="card-body">
+                            <h5 class="card-title">Layered Gemstone Necklace</h5>
+                            <p class="card-text">Delicate multi-strand necklace featuring colorful gemstones.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">Emily Johnson</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 142</span>
+                                <span><i class="far fa-comment"></i> 16</span>
+                                <span><i class="far fa-calendar-alt"></i> Sep 14, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Item 6 -->
+                <div class="col-md-4 favorites-item">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="Copper Cuff Bracelet">
+                        <div class="card-body">
+                            <h5 class="card-title">Copper Cuff Bracelet</h5>
+                            <p class="card-text">Hand-hammered copper cuff with organic texture and patina.</p>
+                            
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/72.jpg" alt="Creator" class="creator-avatar">
+                                <span>by <a href="#" class="text-decoration-none">Michelle Patel</a></span>
+                            </div>
+                            
+                            <div class="item-metadata">
+                                <span><i class="far fa-heart"></i> 68</span>
+                                <span><i class="far fa-comment"></i> 7</span>
+                                <span><i class="far fa-calendar-alt"></i> Oct 23, 2023</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i> View</button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-heart-broken me-1"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Favorites pagination" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Connecting jewelry makers and enthusiasts worldwide.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../index.html" class="text-light">Home</a></li>
+                        <li><a href="../discover.html" class="text-light">Discover</a></li>
+                        <li><a href="../create/upload.html" class="text-light">Create</a></li>
+                        <li><a href="../community/community.html" class="text-light">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 JewelryShare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/navbar.js"></script>
+    <script>
+        // Load navbar component
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置GitHub Pages基础路径
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const basePath = isGitHubPages ? '/jewelry-sharing-platform' : '';
+            console.log('环境检测:', isGitHubPages ? 'GitHub Pages' : '本地或其他环境');
+            console.log('基础路径:', basePath);
+            
+            // 加载导航栏组件
+            fetch(`${basePath}/components/navbar.html`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    
+                    // 初始化 Bootstrap 组件
+                    const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+                    dropdownElementList.map(function (dropdownToggleEl) {
+                        return new bootstrap.Dropdown(dropdownToggleEl);
+                    });
+
+                    // 更新导航栏中的链接
+                    document.querySelectorAll('#navbar-container a').forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith(basePath)) {
+                            const newHref = href.startsWith('/') 
+                                ? basePath + href 
+                                : basePath + '/' + href;
+                            console.log('更新导航链接:', href, '->', newHref);
+                            link.href = newHref;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading navbar:', error);
+                    // Fallback content if navbar fails to load
+                    document.getElementById('navbar-container').innerHTML = `
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+                            <div class="container">
+                                <a class="navbar-brand" href="${basePath}/index.html">
+                                    <i class="fas fa-gem me-2"></i>JewelryShare
+                                </a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarContent">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/index.html">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/discover.html">Discover</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/create/upload.html">Create</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${basePath}/pages/community/community.html">Community</a>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex">
+                                        <a href="${basePath}/pages/auth/login.html" class="btn btn-outline-primary me-2">Login</a>
+                                        <a href="${basePath}/pages/auth/signup.html" class="btn btn-primary">Sign Up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    `;
+                });
+                
+            // 初始化过滤按钮
+            document.querySelectorAll('.filter-buttons .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    document.querySelectorAll('.filter-buttons .btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-outline-primary');
+                    });
+                    
+                    // 将当前按钮设为active
+                    this.classList.add('active');
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-outline-primary');
+                    
+                    // 这里可以添加实际的过滤逻辑
+                    console.log('过滤条件:', this.textContent.trim());
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

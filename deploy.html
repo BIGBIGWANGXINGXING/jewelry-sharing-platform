@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JewelryShare - DIY珠宝分享平台</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --text-color: #2d3436;
+            --light-gray: #dfe6e9;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            padding-top: 76px; /* Account for fixed navbar */
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 0;
+        }
+
+        .hero-section h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .hero-section .lead {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 60px 0;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            background-color: var(--light-gray);
+        }
+
+        .categories-section .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .categories-section .card:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .categories-section .card:hover i {
+            color: var(--white) !important;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2d3436;
+            color: var(--white);
+        }
+
+        footer a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                text-align: center;
+                padding: 40px 0;
+            }
+            
+            .hero-section img {
+                margin-top: 30px;
+            }
+            
+            .categories-section .card {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Utility Classes */
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Form Styles */
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+        }
+
+        /* Card Hover Effects */
+        .card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+        
+        /* 确保图标正确显示 */
+        .fa, .fas, .far, .fal, .fab {
+            font-family: "Font Awesome 6 Free" !important;
+        }
+        /* 确保按钮正确显示 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Navbar.css styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link i {
+            margin-right: 5px;
+        }
+
+        .search-form .form-control {
+            border-radius: 20px 0 0 20px;
+        }
+
+        .search-form .btn {
+            border-radius: 0 20px 20px 0;
+        }
+
+        .user-name {
+            max-width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 992px) {
+            .search-form {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            
+            .navbar-nav, .nav-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-gem me-2"></i>JewelryShare
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home me-1"></i>首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#discover">
+                            <i class="fas fa-compass me-1"></i>发现
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#create">
+                            <i class="fas fa-plus-circle me-1"></i>创作
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#community">
+                            <i class="fas fa-users me-1"></i>社区
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex me-3 search-form">
+                    <div class="input-group">
+                        <input type="search" class="form-control" placeholder="搜索创作...">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- User Actions -->
+                <div class="logged-out">
+                    <a href="#login" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-sign-in-alt me-1"></i>登录
+                    </a>
+                    <a href="#signup" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-1"></i>注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold">分享您的珠宝创作</h1>
+                    <p class="lead">加入我们的DIY珠宝爱好者社区。分享您的创作，获取灵感，与志同道合的创作者交流。</p>
+                    <a href="#signup" class="btn btn-primary btn-lg">立即开始</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="珠宝创作" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Section -->
+    <section id="discover" class="featured-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">精选创作</h2>
+            <div class="row">
+                <!-- Featured Item 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="#creation-detail" class="text-decoration-none text-dark">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top" alt="精选珠宝">
+                            <div class="card-body">
+                                <h5 class="card-title">优雅珍珠项链</h5>
+                                <p class="card-text">使用淡水珍珠和纯银手工制作而成。</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">作者: 王小明</small>
+                                    <div>
+                                        <span class="me-2"><i class="far fa-heart"></i> 245</span>
+                                        <span><i class="far fa-comment"></i> 32</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Featured Item 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="#creation-detail" class="text-decoration-none text-dark">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80" class="card-img-top" alt="精选珠宝">
+                            <div class="card-body">
+                                <h5 class="card-title">串珠手链套装</h5>
+                                <p class="card-text">彩色玻璃珠配以可调节扣件。</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">作者: 李小华</small>
+                                    <div>
+                                        <span class="me-2"><i class="far fa-heart"></i> 189</span>
+                                        <span><i class="far fa-comment"></i> 24</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Featured Item 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="#creation-detail" class="text-decoration-none text-dark">
+                            <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" class="card-img-top" alt="精选珠宝">
+                            <div class="card-body">
+                                <h5 class="card-title">缠绕金属戒指</h5>
+                                <p class="card-text">精细的金属丝工艺配以半宝石。</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">作者: 张小倩</small>
+                                    <div>
+                                        <span class="me-2"><i class="far fa-heart"></i> 312</span>
+                                        <span><i class="far fa-comment"></i> 45</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#more-creations" class="btn btn-outline-primary">查看更多创作</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">浏览分类</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <a href="#category-rings" class="text-decoration-none">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-ring fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">戒指</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="#category-necklaces" class="text-decoration-none">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-gem fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">项链</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="#category-bracelets" class="text-decoration-none">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-hand-sparkles fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">手链</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="#category-earrings" class="text-decoration-none">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-dot-circle fa-3x mb-3 text-primary"></i>
+                                <h5 class="card-title">耳环</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Section -->
+    <section id="create" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1611923134239-b9be5af5f4dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="创作过程" class="img-fluid rounded">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="mb-4">分享您的创作过程</h2>
+                    <p class="lead">展示您的DIY珠宝作品，详细记录制作过程，分享材料清单和灵感来源。</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> 上传多张高质量照片</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> 添加详细的材料和工具清单</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> 分步骤记录制作过程</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> 分享您的设计灵感和故事</li>
+                    </ul>
+                    <a href="#create-new" class="btn btn-primary mt-3">开始创作</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">加入我们的社区</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">交流讨论</h5>
+                            <p class="card-text">与其他珠宝爱好者交流想法，分享经验，获取反馈。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-lightbulb fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">灵感启发</h5>
+                            <p class="card-text">从社区中获取创新灵感，发现新的设计思路和技巧。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-certificate fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">技能提升</h5>
+                            <p class="card-text">通过教程和指导提升您的珠宝制作技能。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#join-community" class="btn btn-primary">立即加入</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">用户心声</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="用户头像" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="card-title mb-0">李小红</h5>
+                                    <small class="text-muted">珠宝设计师</small>
+                                </div>
+                            </div>
+                            <p class="card-text">"自从加入JewelryShare，我不仅找到了志同道合的朋友，还大大提升了我的设计技巧。社区里的反馈让我的作品越来越好！"</p>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="用户头像" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="card-title mb-0">王大明</h5>
+                                    <small class="text-muted">DIY爱好者</small>
+                                </div>
+                            </div>
+                            <p class="card-text">"作为珠宝制作的新手，这个平台给了我很多帮助。详细的教程和友善的社区氛围让我快速入门并爱上了这个爱好。"</p>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="用户头像" class="rounded-circle me-3" width="60">
+                                <div>
+                                    <h5 class="card-title mb-0">张小玉</h5>
+                                    <small class="text-muted">小型珠宝店主</small>
+                                </div>
+                            </div>
+                            <p class="card-text">"JewelryShare不仅是一个展示平台，更是我寻找灵感的源泉。通过这里我找到了我的设计风格，也接触到了许多客户。"</p>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">准备好展示您的珠宝创作了吗？</h2>
+            <p class="lead mb-4">加入我们的社区，与珠宝爱好者分享您的作品和想法。</p>
+            <a href="#signup" class="btn btn-light btn-lg">立即注册</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>关于我们</h5>
+                    <p>连接全球珠宝制作者和爱好者的平台。</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>快速链接</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">首页</a></li>
+                        <li><a href="#discover" class="text-light">发现</a></li>
+                        <li><a href="#create" class="text-light">创作</a></li>
+                        <li><a href="#community" class="text-light">社区</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>联系我们</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-qq"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-bilibili"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 JewelryShare 珠宝分享平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">登录</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">电子邮箱</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">密码</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">记住我</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">登录</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-decoration-none">忘记密码?</a>
+                        <p class="mt-3 mb-0">还没有账号? <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">立即注册</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">注册</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">用户名</label>
+                            <input type="text" class="form-control" id="signupName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">电子邮箱</label>
+                            <input type="email" class="form-control" id="signupEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">密码</label>
+                            <input type="password" class="form-control" id="signupPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">确认密码</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">我同意<a href="#">服务条款</a>和<a href="#">隐私政策</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">注册</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p class="mb-0">已有账号? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">登录</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle login/signup link clicks
+            document.querySelectorAll('a[href="#login"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+                });
+            });
+            
+            document.querySelectorAll('a[href="#signup"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+                    signupModal.show();
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]:not([data-bs-toggle])').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if(targetId !== "#" && targetId !== "#login" && targetId !== "#signup") {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Add active class to navigation links based on scroll position
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollY = window.pageYOffset;
+                
+                sections.forEach(current => {
+                    const sectionHeight = current.offsetHeight;
+                    const sectionTop = current.offsetTop - 100;
+                    const sectionId = current.getAttribute('id');
+                    
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        document.querySelector('.navbar a[href="#' + sectionId + '"]')?.classList.add('active');
+                    } else {
+                        document.querySelector('.navbar a[href="#' + sectionId + '"]')?.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
