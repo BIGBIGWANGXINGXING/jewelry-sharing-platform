@@ -1,0 +1,116 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/jewelry-sharing-platform/index.html">
+            <i class="fas fa-gem me-2"></i>JewelryShare
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/jewelry-sharing-platform/index.html">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jewelry-sharing-platform/pages/discover.html">
+                        <i class="fas fa-compass me-1"></i>Discover
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jewelry-sharing-platform/pages/create/upload.html">
+                        <i class="fas fa-plus-circle me-1"></i>Create
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jewelry-sharing-platform/pages/community.html">
+                        <i class="fas fa-users me-1"></i>Community
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Search Bar -->
+            <form class="d-flex me-3 search-form">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search creations...">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- User Actions -->
+            <div class="logged-out d-none">
+                <a href="/jewelry-sharing-platform/pages/auth/login.html" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-sign-in-alt me-1"></i>Login
+                </a>
+                <a href="/jewelry-sharing-platform/pages/auth/signup.html" class="btn btn-primary">
+                    <i class="fas fa-user-plus me-1"></i>Sign Up
+                </a>
+            </div>
+
+            <div class="logged-in">
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center text-decoration-none" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/jewelry-sharing-platform/assets/images/avatar.jpg" alt="User" class="rounded-circle me-2" width="32" height="32">
+                        <span class="user-name">John Doe</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" href="/jewelry-sharing-platform/pages/profile.html">
+                                <i class="fas fa-user me-2"></i>My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/jewelry-sharing-platform/pages/profile/creations.html">
+                                <i class="fas fa-gem me-2"></i>My Creations
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/jewelry-sharing-platform/pages/profile/favorites.html">
+                                <i class="fas fa-heart me-2"></i>Favorites
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Spacer for fixed navbar -->
+<div style="height: 72px;"></div>
+
+<!-- Scripts -->
+<script>
+    // Add active class to current page
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Initialize all dropdowns
+        const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+        dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+    });
+</script> 

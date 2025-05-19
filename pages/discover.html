@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Jewelry Creations - JewelryShare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <style>
+        .discover-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/discover-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-top: 72px;
+        }
+
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .creation-card {
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .creation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .creation-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 123, 255, 0.9);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="discover-hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Discover Creations</h1>
+            <p class="lead">Explore amazing jewelry creations from our community</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select mb-3">
+                        <option selected>All Categories</option>
+                        <option>Rings</option>
+                        <option>Necklaces</option>
+                        <option>Bracelets</option>
+                        <option>Earrings</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select mb-3">
+                        <option selected>Sort By</option>
+                        <option>Most Recent</option>
+                        <option>Most Popular</option>
+                        <option>Most Comments</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search creations...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creations Grid -->
+    <section class="creations-grid py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Creation Card 1 -->
+                <div class="col-md-4">
+                    <div class="card creation-card">
+                        <span class="category-badge">Rings</span>
+                        <img src="../../assets/creation1.jpg" class="card-img-top" alt="Wire Wrapped Ring">
+                        <div class="card-body">
+                            <h5 class="card-title">Wire Wrapped Ring</h5>
+                            <p class="card-text">Intricate wire work with semi-precious stone.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">By Sarah Johnson</small>
+                                <div>
+                                    <span class="me-2"><i class="far fa-heart"></i> 312</span>
+                                    <span><i class="far fa-comment"></i> 45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creation Card 2 -->
+                <div class="col-md-4">
+                    <div class="card creation-card">
+                        <span class="category-badge">Necklaces</span>
+                        <img src="../../assets/creation2.jpg" class="card-img-top" alt="Pearl Necklace">
+                        <div class="card-body">
+                            <h5 class="card-title">Elegant Pearl Necklace</h5>
+                            <p class="card-text">Handcrafted with freshwater pearls and sterling silver.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">By Jane Doe</small>
+                                <div>
+                                    <span class="me-2"><i class="far fa-heart"></i> 245</span>
+                                    <span><i class="far fa-comment"></i> 32</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creation Card 3 -->
+                <div class="col-md-4">
+                    <div class="card creation-card">
+                        <span class="category-badge">Bracelets</span>
+                        <img src="../../assets/creation3.jpg" class="card-img-top" alt="Beaded Bracelet">
+                        <div class="card-body">
+                            <h5 class="card-title">Beaded Bracelet Set</h5>
+                            <p class="card-text">Colorful glass beads with adjustable closures.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">By John Smith</small>
+                                <div>
+                                    <span class="me-2"><i class="far fa-heart"></i> 189</span>
+                                    <span><i class="far fa-comment"></i> 24</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Creation Cards... -->
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Connecting jewelry makers and enthusiasts worldwide.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../index.html" class="text-light">Home</a></li>
+                        <li><a href="#" class="text-light">Discover</a></li>
+                        <li><a href="../create/upload.html" class="text-light">Create</a></li>
+                        <li><a href="../community/community.html" class="text-light">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 JewelryShare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/navbar.js"></script>
+    <script>
+        // Load navbar component
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../../components/navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    
+                    // Initialize Bootstrap components
+                    const dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+                    dropdownElementList.map(function (dropdownToggleEl) {
+                        return new bootstrap.Dropdown(dropdownToggleEl);
+                    });
+                });
+        });
+    </script>
+</body>
+</html> 

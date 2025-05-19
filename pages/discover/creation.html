@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wire Wrapped Ring - JewelryShare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <style>
+        .creation-container {
+            padding: 40px 0;
+        }
+        .creation-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .creation-details {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .comment-section {
+            margin-top: 30px;
+        }
+        .comment {
+            border-left: 3px solid var(--bs-primary);
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <div class="creation-container">
+        <div class="container">
+            <div class="row">
+                <!-- Creation Image -->
+                <div class="col-lg-8">
+                    <img src="../../assets/images/creation1.jpg" alt="Wire Wrapped Ring" class="creation-image">
+                </div>
+                
+                <!-- Creation Details -->
+                <div class="col-lg-4">
+                    <div class="creation-details">
+                        <h1>Wire Wrapped Ring</h1>
+                        <p class="text-muted">By Sarah Johnson</p>
+                        <p>A beautiful wire-wrapped ring featuring a semi-precious stone. Perfect for everyday wear.</p>
+                        
+                        <div class="mt-4">
+                            <h5>Materials Used</h5>
+                            <ul>
+                                <li>Sterling Silver Wire</li>
+                                <li>Amethyst Stone</li>
+                                <li>Copper Accents</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>Dimensions</h5>
+                            <p>Ring Size: 7</p>
+                            <p>Stone Size: 8mm</p>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-primary me-2">
+                                <i class="far fa-heart"></i> Like
+                            </button>
+                            <button class="btn btn-outline-primary me-2">
+                                <i class="far fa-comment"></i> Comment
+                            </button>
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="row mt-5">
+                <div class="col-lg-8">
+                    <div class="comment-section">
+                        <h3>Comments</h3>
+                        
+                        <!-- Comment Form -->
+                        <div class="mb-4">
+                            <form>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="3" placeholder="Add a comment..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Post Comment</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Comments List -->
+                        <div class="comment">
+                            <p class="mb-1"><strong>Jane Doe</strong></p>
+                            <p class="mb-1">This is absolutely stunning! The wire work is so intricate.</p>
+                            <small class="text-muted">2 days ago</small>
+                        </div>
+                        
+                        <div class="comment">
+                            <p class="mb-1"><strong>John Smith</strong></p>
+                            <p class="mb-1">I love the combination of silver and copper. Great work!</p>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/navbar.js"></script>
+    <script>
+        // Load navbar component
+        fetch('../../components/navbar.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navbar-container').innerHTML = html;
+                // Initialize navbar functionality
+                const navbarScript = document.createElement('script');
+                navbarScript.src = '../../js/navbar.js';
+                document.body.appendChild(navbarScript);
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+</body>
+</html> 

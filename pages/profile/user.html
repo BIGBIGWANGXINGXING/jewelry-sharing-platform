@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - JewelryShare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+        }
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .profile-tabs {
+            margin-bottom: 30px;
+        }
+        .creation-card {
+            transition: transform 0.3s ease;
+        }
+        .creation-card:hover {
+            transform: translateY(-5px);
+        }
+        .creation-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        .badge-custom {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .follow-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <img src="../../assets/avatar.jpg" alt="Profile Avatar" class="profile-avatar mb-3">
+                    <h3>Jane Doe</h3>
+                    <p class="mb-0">Jewelry Designer & Enthusiast</p>
+                </div>
+                <div class="col-md-8">
+                    <p class="lead">Passionate about creating unique jewelry pieces that tell a story. Specializing in wire wrapping and beadwork.</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">128</div>
+                            <div class="stat-label">Creations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2.4k</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">856</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="container">
+        <!-- Profile Navigation -->
+        <ul class="nav nav-tabs profile-tabs" id="profileTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="creations-tab" data-bs-toggle="tab" data-bs-target="#creations" type="button" role="tab">
+                    <i class="fas fa-gem"></i> Creations
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="collections-tab" data-bs-toggle="tab" data-bs-target="#collections" type="button" role="tab">
+                    <i class="fas fa-folder"></i> Collections
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">
+                    <i class="fas fa-user"></i> About
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="profileTabContent">
+            <!-- Creations Tab -->
+            <div class="tab-pane fade show active" id="creations" role="tabpanel">
+                <div class="row">
+                    <!-- Creation 1 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card creation-card">
+                            <a href="../../pages/discover/creation.html" class="text-decoration-none text-dark">
+                                <img src="../../assets/creation1.jpg" class="card-img-top creation-image" alt="Creation">
+                                <div class="card-body">
+                                    <h5 class="card-title">Wire Wrapped Ring</h5>
+                                    <p class="card-text">Handcrafted with sterling silver wire and amethyst stone.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="badge badge-custom">Ring</span>
+                                            <span class="badge bg-secondary">Wire Wrapping</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted"><i class="far fa-heart"></i> 245</small>
+                                            <small class="text-muted ms-2"><i class="far fa-comment"></i> 32</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Creation 2 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card creation-card">
+                            <a href="../../pages/discover/creation.html" class="text-decoration-none text-dark">
+                                <img src="../../assets/creation2.jpg" class="card-img-top creation-image" alt="Creation">
+                                <div class="card-body">
+                                    <h5 class="card-title">Beaded Necklace</h5>
+                                    <p class="card-text">Colorful glass beads with silver accents.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="badge badge-custom">Necklace</span>
+                                            <span class="badge bg-secondary">Beadwork</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted"><i class="far fa-heart"></i> 189</small>
+                                            <small class="text-muted ms-2"><i class="far fa-comment"></i> 24</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Creation 3 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card creation-card">
+                            <a href="../../pages/discover/creation.html" class="text-decoration-none text-dark">
+                                <img src="../../assets/creation3.jpg" class="card-img-top creation-image" alt="Creation">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pearl Earrings</h5>
+                                    <p class="card-text">Freshwater pearls with gold-plated hooks.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="badge badge-custom">Earrings</span>
+                                            <span class="badge bg-secondary">Pearls</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted"><i class="far fa-heart"></i> 312</small>
+                                            <small class="text-muted ms-2"><i class="far fa-comment"></i> 45</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collections Tab -->
+            <div class="tab-pane fade" id="collections" role="tabpanel">
+                <div class="row">
+                    <!-- Collection 1 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="../../assets/collection1.jpg" class="card-img-top" alt="Collection">
+                            <div class="card-body">
+                                <h5 class="card-title">Wire Wrapping Series</h5>
+                                <p class="card-text">A collection of wire-wrapped jewelry pieces</p>
+                                <small class="text-muted">12 items</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Collection 2 -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="../../assets/collection2.jpg" class="card-img-top" alt="Collection">
+                            <div class="card-body">
+                                <h5 class="card-title">Beadwork Creations</h5>
+                                <p class="card-text">Colorful beaded jewelry designs</p>
+                                <small class="text-muted">8 items</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-pane fade" id="about" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">About Me</h5>
+                        <p class="card-text">I've been creating jewelry for over 5 years, specializing in wire wrapping and beadwork. My passion for jewelry making started when I received my first beading kit as a gift. Since then, I've been experimenting with different techniques and materials to create unique pieces.</p>
+                        
+                        <h5 class="mt-4">Skills</h5>
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2">Wire Wrapping</span>
+                            <span class="badge bg-primary me-2">Beadwork</span>
+                            <span class="badge bg-primary me-2">Metal Work</span>
+                            <span class="badge bg-primary me-2">Stone Setting</span>
+                        </div>
+
+                        <h5 class="mt-4">Contact Information</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-envelope me-2"></i> jane.doe@example.com</li>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> New York, USA</li>
+                            <li><i class="fas fa-link me-2"></i> <a href="#" class="text-decoration-none">www.janedoejewelry.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../../js/main.js"></script>
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // Handle follow button
+        const followBtn = document.querySelector('.follow-btn');
+        if (followBtn) {
+            followBtn.addEventListener('click', function() {
+                this.classList.toggle('btn-primary');
+                this.classList.toggle('btn-outline-primary');
+                const text = this.classList.contains('btn-primary') ? 'Following' : 'Follow';
+                this.textContent = text;
+            });
+        }
+    </script>
+</body>
+</html> 
